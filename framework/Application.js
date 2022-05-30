@@ -1,7 +1,7 @@
-const http = require('http')
-const Router = require('./src/Router')
+import * as http from 'http'
+import { Router } from './src/Router.js'
 
-module.exports = class Application {
+class Application {
     constructor() {
         this._router = new Router();
         this._server = this._createServer();
@@ -23,3 +23,5 @@ module.exports = class Application {
         this._server.listen(PORT, callback);
     }
 }
+
+export { Application }

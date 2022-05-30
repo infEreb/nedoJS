@@ -1,7 +1,7 @@
-const EventEmitter = require('events')
-const url = require('url')
+import { EventEmitter } from 'events'
+import * as url from 'url'
 
-module.exports = class Router {
+class Router {
     constructor() {
         this._emitter = new EventEmitter();
         this._endpoints = new Map();
@@ -30,17 +30,16 @@ module.exports = class Router {
         let urlParts = url.parse(req.url);
         let endpoint = urlParts.pathname;
         let params = new URLSearchParams(urlParts.query);
-        
-        let method = req.method;
 
+        let method = req.method;
+        
+        // has endpoint check
         if (!this._endpoints.has(endpoint)) {
-            
             return true;
         }
 
-
-
         return !this._emitter.emit(this._endpoints.get(endpoint).getMask(method), req, res, params);
     }
-
 }
+
+export { Router }
